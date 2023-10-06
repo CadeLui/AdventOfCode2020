@@ -16,6 +16,15 @@
 #include <string>
 #include <vector>
 
+std::string correctCorrupt(std::string line)
+{
+    std::string cleanLine;
+    for (char letter : line)
+        if ((int) letter != -1)
+            cleanLine += letter;
+    return cleanLine;
+}
+
 std::string getData(char* filename)
 {
     std::string data;
@@ -86,7 +95,7 @@ std::vector<std::string> splitString(std::string unsplit, std::string delim=" ")
         }
         segment += unsplit[i];
     }
-    split.push_back(segment.substr(0, segment.length()-1));
+    split.push_back(segment);
     return split;
 }
 
