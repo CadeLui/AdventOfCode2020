@@ -15,6 +15,29 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
+
+int vectorMax(std::vector<int> nums)
+{
+    int max = __INT32_MAX__+1;
+    for (int num : nums)
+        if (num > max) max = num;
+    return max;
+}
+
+int vectorMin(std::vector<int> nums)
+{
+    int min = __INT32_MAX__;
+    for (int num : nums)
+        if (num < min) min = num;
+    return min;
+}
+
+int vectorFind(std::vector<int> nums, int target)
+{
+    for (int num : nums) if (num == target) return num;
+    return -1;
+}
 
 std::string correctCorrupt(std::string line)
 {
