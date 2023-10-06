@@ -21,11 +21,12 @@ bool numTester(int num, int min, int max)
 
 bool testFieldValidity(std::vector<std::string> fields)
 {
+    std::cout << "set\n";
     for (std::string full_field : fields)
     {
         std::string field = full_field.substr(0, 3);
-        std::string data = full_field.substr(4);
-        std::cout << field << "." << data << "\n";
+        std::string data = removeNewLines(full_field.substr(4));
+        if ((int) data[data.length()-1] == -1) data = data.substr(0, data.length()-1);
         if (field == "byr")
             if (numTester(atoi(data.c_str()), 1920, 2020)) return false;
         if (field == "iyr")
@@ -35,10 +36,10 @@ bool testFieldValidity(std::vector<std::string> fields)
         if (field == "hgt")
         {
             std::string suffix = full_field.substr(full_field.length()-2);
-            if (suffix.com || suffix != "cm") return false;
+            if (suffix.compare("in") != 0 && suffix.compare("cm") != 0) return false;
             int num = atoi(full_field.substr(4, full_field.length()-2).c_str());
-            if (suffix == "cm" && numTester(num, 150, 193)) return false;
-            if (suffix == "in" && numTester(num, 59, 76)) return false;
+            if (suffix.compare("cm") == 0 && numTester(num, 150, 193)) return false;
+            if (suffix.compare("in") == 0 && numTester(num, 59, 76)) return false;
         }
         if (field == "hcl") // haha hydrochloric acid
         {
