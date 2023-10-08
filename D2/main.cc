@@ -1,31 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-
-std::vector<std::string> sgetData(char* filename)
-{
-    std::vector<std::string> data;
-    std::ifstream fdata;
-    fdata.open(filename);
-    std::string line;
-    while (getline(fdata, line))
-        data.push_back(line);
-    fdata.close();
-    return data;
-}
-
-std::vector<int> igetData(char* filename)
-{
-    std::vector<int> data;
-    std::ifstream fdata;
-    fdata.open(filename);
-    std::string line;
-    while (getline(fdata, line))
-        data.push_back(std::stoi(line));
-    fdata.close();
-    return data;
-}
+#include "../Base/AOC_lib.h"
 
 std::vector<int> getRange(std::string line)
 {
@@ -38,6 +11,7 @@ std::vector<int> getRange(std::string line)
     vals.push_back(std::stoi(sec_two));
     return vals;
 }
+
 std::string getPass(std::string line)
 {return line.substr(line.find(" ") + 4);}
 

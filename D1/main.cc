@@ -1,42 +1,11 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-
-std::vector<std::string> sgetData(std::string filename)
-{
-    std::vector<std::string> data;
-    std::ifstream fdata;
-    fdata.open(filename);
-    std::string line;
-    while (getline(fdata, line))
-        data.push_back(line);
-    return data;
-}
-
-std::vector<int> igetData(std::string filename)
-{
-    std::vector<int> data;
-    std::ifstream fdata;
-    fdata.open(filename);
-    std::string line;
-    while (getline(fdata, line))
-        data.push_back(std::stoi(line));
-    return data;
-}
+#include "../Base/AOC_lib.h"
 
 int findProducts(std::vector<int> data)
 {
     for (int reference = 0; reference < data.size(); reference++)
-    {
         for (int i = reference; i < data.size(); i++)
-        {
             if (data[reference] + data[i] == 2020)
-            {
                 return data[reference] * data[i];
-            }
-        }
-    }
     return 0;
 }
 
