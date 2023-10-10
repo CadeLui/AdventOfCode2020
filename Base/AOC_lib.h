@@ -94,23 +94,6 @@ std::vector<int> igetData(char* filename)
     return data;
 }
 
-std::vector<std::vector<char>> cvgetData(char* filename)
-{
-    std::vector<std::vector<char>> data;
-    std::ifstream fdata;
-    fdata.open(filename);
-    std::string line;
-    while (getline(fdata, line))
-    {
-        std::vector<char> newRow;
-        for (char col : line)
-            newRow.push_back(col);
-        data.push_back(newRow);
-    }
-    fdata.close();
-    return data;
-}
-
 std::vector<std::string> splitString(std::string unsplit, std::string delim=" ")
 {
     std::vector<std::string> split;
