@@ -19,10 +19,23 @@
 
 int vectorMax(std::vector<int> nums)
 {
-    int max = __INT32_MAX__+1;
+    int max = -__INT32_MAX__;
     for (int num : nums)
         if (num > max) max = num;
     return max;
+}
+
+std::string vectorLongestString(std::vector<std::string> strings)
+{
+    int max = -__INT32_MAX__;
+    std::string largest = "";
+    for (std::string str : strings)
+        if ((int)str.length() > max)
+        {
+            max = str.length();
+            largest = str;
+        }
+    return largest;
 }
 
 int vectorMin(std::vector<int> nums)
@@ -133,4 +146,34 @@ std::string removeNewLines(std::string line)
             cleanLine += " ";
     }
     return cleanLine;
+}
+
+std::string replaceChars(std::string line, std::string old, std::string not_old)
+{
+    std::string cleanLine;
+    for (char letter : line)
+    {    
+        if (letter != old[0])
+            cleanLine += letter;
+        else
+            cleanLine += not_old;
+    }
+    return cleanLine;
+}
+
+std::vector<std::string> getGroupedData(char* filename)
+{
+    std::vector<std::string> data = splitString(getData(filename), "\n\n");
+    std::vector<std::string> cleanData;
+    for (std::string dirtyGroup : data)
+        cleanData.push_back(correctCorrupt(removeNewLines(dirtyGroup)));
+    return cleanData;
+}
+
+std::string removeDuplicates(std::string input)
+{
+    std::string replacement = "";
+    for (char letter : input)
+        if (replacement.find(letter) == std::string::npos) replacement += letter;
+    return replacement;
 }
