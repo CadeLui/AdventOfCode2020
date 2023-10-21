@@ -46,9 +46,10 @@ int vectorMin(std::vector<int> nums)
     return min;
 }
 
-int vectorFindLocation(std::vector<int> nums, int target)
+template <typename T>
+int findLocation(std::vector<T> vec, T target)
 {
-    for (int num : nums) if (num == target) return num;
+    for (int i = 0; i < vec.size(); i++) if (vec.at(i) == target) return i;
     return -1;
 }
 
