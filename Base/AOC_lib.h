@@ -46,10 +46,16 @@ int vectorMin(std::vector<int> nums)
     return min;
 }
 
-int vectorFind(std::vector<int> nums, int target)
+int vectorFindLocation(std::vector<int> nums, int target)
 {
     for (int num : nums) if (num == target) return num;
     return -1;
+}
+
+template <typename T>
+bool findAndReturnTrue(std::vector<T> vec, T target)
+{
+    return std::find(vec.begin(), vec.end(), target) != vec.end();
 }
 
 std::string correctCorrupt(std::string line)
