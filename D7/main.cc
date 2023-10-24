@@ -1,6 +1,5 @@
 #include "../Base/AOC_lib.h"
 #include <memory>
-#include <map>
 
 struct Bag 
 {
