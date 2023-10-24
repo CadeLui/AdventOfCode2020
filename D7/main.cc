@@ -31,9 +31,9 @@ void giveBagsTheirChildren(std::vector<std::shared_ptr<Bag>> bags, std::vector<s
         line = replaceChars(line, ",", "");
         std::vector<std::string> splitLine = splitString(line);
         std::shared_ptr<Bag> referenceBag = findBagFromString(bags, splitLine[0] + splitLine[1]);
+        if (splitLine[4] == "no") continue;
         for (int i = 4; i < splitLine.size(); i += 4)
         {
-            if (splitLine[i] == "no") break;
             referenceBag->listOfContents.push_back
             (
                 std::pair<int, std::shared_ptr<Bag>>
@@ -48,10 +48,12 @@ void giveBagsTheirChildren(std::vector<std::shared_ptr<Bag>> bags, std::vector<s
 
 int digThroughContainer(std::shared_ptr<Bag> bag, std::string containedBag)
 {
+    int count = 0;
     for (std::pair<int, std::shared_ptr<Bag>> contentDesc : bag->listOfContents)
     {
         if (contentDesc.second->description == containedBag) return 1;
-        else return digThroughContainer(contentDesc.second, containedBag);
+        else count += digThroughContainer(contentDesc.second, containedBag);
+        if (count > 0) return 1;
     }
     return 0;
 }
@@ -60,25 +62,26 @@ int findValidContainers(std::vector<std::shared_ptr<Bag>> bags, std::string cont
 {
     int containers = 0;
     for (std::shared_ptr<Bag> bag : bags)
-    {
-        int found = 0;
-        for (std::pair<int, std::shared_ptr<Bag>> contentDesc : bag->listOfContents)
-        {
-            if (contentDesc.second->description == containedBag) found += 1;
-            else found += digThroughContainer(contentDesc.second, containedBag);
-        }
-        if (found > 0) containers += 1;
-    }
+        containers += digThroughContainer(bag, containedBag);
     return containers;
+}
+
+int findHowManyBagsInOneBag(std::shared_ptr<Bag> bag)
+{
+    int numOfBags = 0;
+    for (std::pair<int, std::shared_ptr<Bag>> content : bag->listOfContents)
+        numOfBags += content.first * findHowManyBagsInOneBag(content.second) + content.first;
+    return numOfBags;
 }
 
 int main(int argc, char* argv[])
 {
     if (argc < 2) { std::cout << "Please provide a filename as a parameter.\n"; return 0; }
-    std::vector<std::string> data = sgetData(argv[1]);
+    std::vector<std::string> lines = sgetData(argv[1]);
     std::vector<std::shared_ptr<Bag>> bags;
-    for (std::string line : data)
+    for (std::string line : lines)
         bags.push_back(getBagFromLine(line));
-    giveBagsTheirChildren(bags, data);
+    giveBagsTheirChildren(bags, lines);
     std::cout << findValidContainers(bags, "shinygold") << "\n";
+    std::cout << findHowManyBagsInOneBag(findBagFromString(bags, "shinygold")) << "\n";
 }
