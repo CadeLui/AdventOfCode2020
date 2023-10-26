@@ -28,7 +28,6 @@ void giveBagsTheirChildren(std::vector<std::shared_ptr<Bag>> bags, std::vector<s
 {
     for (std::string line : lines)
     {
-        line = replaceChars(line, ",", "");
         std::vector<std::string> splitLine = splitString(line);
         std::shared_ptr<Bag> referenceBag = findBagFromString(bags, splitLine[0] + splitLine[1]);
         if (splitLine[4] == "no") continue;
