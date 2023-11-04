@@ -1,6 +1,5 @@
 #include "../Base/AOC_lib.h"
 #include <algorithm>
-#include <valarray>
 
 std::vector<int> addImpliedAdapter(std::vector<int> adapters)
 {
