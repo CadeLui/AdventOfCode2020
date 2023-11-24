@@ -16,17 +16,16 @@ int getNumOfDifferences(std::vector<int> adapters, int difference)
   return differences;
 }
 
-long getPermutations(std::vector<int> adapters, int start=0)
+long long getPermutations(std::vector<int> adapters, int start=0)
 {
-  long permutations = 0;
+  long long permutations = 0;
   int length;
   for (length = start+1; length < adapters.size(); length++)
   {
-    std::cout << "We at: " << length << "\n";
-    if (adapters[length] - adapters[start] <= 3) permutations += getPermutations(adapters, length);
-    else break;
+    if (adapters[length] - adapters[start] > 3) break;
+    else permutations += getPermutations(adapters, length);
   }
-  if (length == adapters.size()-1) return ++permutations;
+  if (length == adapters.size()-1) {return ++permutations;}
   return permutations;
 }
 
@@ -36,6 +35,7 @@ int main(int argc, char* argv[])
   std::vector<int> data = igetData(argv[1]);
   std::sort(std::begin(data), std::end(data));
   data = addImpliedAdapter(data);
+  data.shrink_to_fit();
   std::cout << getNumOfDifferences(data, 1) * getNumOfDifferences(data, 3) << "\n";
   std::cout << getPermutations(data) << "\n";
 }
